@@ -5941,6 +5941,44 @@ bug](https://github.com/witiko/markdown/issues).
 % \par
 % \begin{markdown}
 %
+%#### Finalizing and Freezing the Cache
+% The \mdef{ifmarkdownOptionFinalizeCache} conditional creates a mapping
+% between an enumeration of the markdown documents in the plain \TeX{} document
+% and their auxiliary files cached in the \meta{outputDir}`/`\meta{cacheDir}
+% directory, where \meta{outputDir} and \meta{cacheDir} are Lua options.
+%
+% \end{markdown}
+%  \begin{macrocode}
+\newif\ifmarkdownOptionFinalizeCache
+\markdownOptionFinalizeCachefalse
+%    \end{macrocode}
+% \par
+% \begin{markdown}
+%
+% The \mdef{ifmarkdownOptionFrozenCache} conditional uses the mapping
+% previously created by the \m{ifmarkdownOptionFinalizeCache} conditional,
+% and uses it to typeset the plain \TeX{} document without invoking Lua. As a
+% result, the plain \TeX{} document becomes more portable, but further changes
+% in the order and the content of markdown documents will not be reflected.
+%
+% \end{markdown}
+%  \begin{macrocode}
+\newif\ifmarkdownOptionFrozenCache
+\markdownOptionFrozenCachefalse
+%    \end{macrocode}
+% \par
+% \begin{markdown}
+%
+% The standard usage of the above two conditionals is as follows:
+%
+% 1. Remove the \meta{outputDir}`/`\meta{cacheDir} cache directory with
+%    stale auxiliary files.
+% 2. Enable the \m{ifmarkdownOptionFinalizeCache} conditional.
+% 3. Typeset the plain \TeX{} document to populate and finalize the cache.
+% 4. Enable the \m{ifmarkdownOptionFrozenCache} conditional.
+% 5. Publish the source code of the plain \TeX{} document together with the
+%    \meta{outputDir}`/`\meta{cacheDir} cache directory.
+%
 %#### Lua Interface Options
 % The following macros map directly to the options recognized by the Lua
 % interface (see Section \ref{sec:luaoptions}) and are not processed by the
