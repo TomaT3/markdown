@@ -121,6 +121,14 @@
   date      = {2017-04-15},
   url       = {http://mirrors.ctan.org/macros/latex/base/doc.pdf},
   urldate   = {2018-02-19}}
+@book{poore17,
+  author    = {Poore, Geoffrey M.},
+  title     = {The \texttt{minted} Package},
+  subtitle  = {Highlighted source code in \LaTeX},
+  date      = {2017-07-19},
+  version   = {v2.5},
+  url       = {http://mirrors.ctan.org/macros/latex/contrib/minted/minted.pdf},
+  urldate   = {2020-09-01}}
 @online{novotny15,
   author    = {Novotný, Vít},
   year      = {2015},
@@ -10319,6 +10327,47 @@ pdflatex --shell-escape document.tex
   \def\markdownOptionUnderscores{#1}}%
 \define@key{markdownOptions}{stripPercentSigns}[true]{%
   \def\markdownOptionStripPercentSigns{#1}}%
+%    \end{macrocode}
+% \par
+% \begin{markdown}
+%
+% \m{ifmarkdownOptionFinalizeCache} and \m{ifmarkdownOptionFrozenCache} plain
+% \TeX{} conditionals are exposed through \LaTeX{} options with keys
+% `finalizecache` and `frozencache`.  The slight inconsistency in the naming
+% is to ensure compatibility with the `minted` package [@poore17, Section 5.1],
+% which also supports the `finalizecache` and `frozencache` package options
+% with similar semantics. By passing `finalizecache` and `frozencache` as
+% document class options, a user may conveniently control the behavior of both
+% packages at once:
+%
+% ``` tex
+% \documentclass[frozencache]{article}
+% \usepackage{markdown,minted}
+% \begin{document}
+% % ...
+% \end{document}
+% ```````
+%
+% We hope that other packages will support the `finalizecache` and
+% `frozencache` package options in the future, so that they can become a
+% standard interface for preparing \LaTeX{} document sources for distribution.
+%
+% \end{markdown}
+%  \begin{macrocode}
+\define@key{markdownOptions}{finalizecache}[true]{%
+  \ifthenelse{\equal{#1}{true}}{%
+    \markdownOptionFinalizeCachetrue
+  }{%
+    \markdownOptionFinalizeCachefalse
+  }%
+}%
+\define@key{markdownOptions}{frozencache}[true]{%
+  \ifthenelse{\equal{#1}{true}}{%
+    \markdownOptionFrozenCachetrue
+  }{%
+    \markdownOptionFrozenCachefalse
+  }%
+}%
 %    \end{macrocode}
 % \par
 % \begin{markdown}
